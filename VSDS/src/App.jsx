@@ -100,7 +100,12 @@ function App() {
       const issueArray = new Array()
       issueArray.push(issue.issue_number)
       issueArray.push(issue.issue_tag)
-      issueArray.push(issue.comments)
+      //comments only print first 30 characters + ...
+      if (issue.comments.length > 30) {
+        issueArray.push(issue.comments.substring(0, 30) + "...")
+      } else {
+        issueArray.push(issue.comments)
+      }
       issueArray.push(issue.sprint_num)
       issueArray.push(issue.difficulty)
       issueArray.push(issue.is_started)

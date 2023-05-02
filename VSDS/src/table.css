@@ -26,3 +26,34 @@ td {
 tbody tr:nth-child(even) {
   background-color: #454545;
 }
+
+tbody tr:hover {
+  background-color: #666;
+}
+
+tbody tr:last-of-type{
+  background-color: #151515
+}
+
+tbody tr:last-of-type:hover{
+  background-color: #151515
+}
+
+.delete {
+  background-color: #f44336;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  height: 100%
+}
+
+.add {
+  background-color: #4CAF50;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  height: 100%
+}
+

@@ -12,6 +12,7 @@ const Table = (props) => {
             {props.Tcols.map((col, index) => (
               <th key={index}>{col}</th>
             ))}
+            <th>+/-</th>
           </tr>
         </thead>
         <tbody>
@@ -20,8 +21,17 @@ const Table = (props) => {
               {row.map((data, index) => (
                 <td key={index}>{data}</td>
               ))}
+              <button className='delete'>&times;</button>
             </tr>
           ))}
+          <tr>
+            {props.Tcols.map((col, index) => (
+              <td key={index}>
+                <input placeholder={col}/>
+              </td>
+            ))}
+            <button className='add'>+</button>
+          </tr>
         </tbody>
       </table>
     </>

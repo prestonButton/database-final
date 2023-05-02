@@ -33,6 +33,8 @@ async function handleDisconnect() {
 
 handleDisconnect();
 
+//Get Requests
+
 app.get("/", (req, res) => {
   res.send("Welcome to the VSDS REST API!");
 });
@@ -95,6 +97,9 @@ app.get('/api/issues', async (req, res) => {
     res.status(500).send(err.message);
   }
 });
+
+// Post Requests
+
 
 
 
