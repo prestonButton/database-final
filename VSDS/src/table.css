@@ -1,0 +1,28 @@
+table {
+  margin: 0 auto;
+  border-spacing: 0;
+  border: 1px solid #888;
+  overflow: hidden;
+  box-shadow: 0 0 1em #00000022;
+  padding: 10px;
+}
+
+thead {
+    color: #fff;
+}
+
+th {
+  background-color: #888;
+  color: #fff;
+  padding: 10px 20px;
+  text-align: left;
+}
+
+td {
+  padding: 10px 20px;
+  text-align: left;
+}
+
+tbody tr:nth-child(even) {
+  background-color: #454545;
+}
