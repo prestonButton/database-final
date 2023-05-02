@@ -46,9 +46,9 @@ app.get("/api/test", (req, res) => {
 
 // Add your API routes here
 // Example: Projects API routes
-app.get("/api/projects", async (req, res) => {
+app.get("/api/members", async (req, res) => {
   try {
-    const [rows] = await connection.query("SELECT * FROM projects");
+    const [rows] = await connection.query("SELECT * FROM gen_member");
     console.log("Fetched projects:", rows); // Add this line for debugging
     res.json(rows);
   } catch (err) {
