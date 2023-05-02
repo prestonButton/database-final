@@ -106,7 +106,7 @@ Method takes a HashMap<String, String> and a listing_id as inputs and updates th
 
 INSERT INTO issue VALUES (3, 'front-end, UI design', 'Improve the user interface for the login page, make it more intuitive and user-friendly', 2, 'medium', 'Y', 'N', 'dbekhit@villanova.edu', 'roommate-matcher');
 
-INSERT INTO issue VALUES (6, 'database, performance optimization', 'Optimize the database queries to reduce the load time on the homepage', 4, 'hard', 'Y', 'N', 'hcormie2@villanova.edu', 'roommate-matcher');
+INSERT INTO issue VALUES (6, 'database, performance', 'Optimize the database queries to reduce the load time on the homepage', 4, 'hard', 'Y', 'N', 'hcormie2@villanova.edu', 'roommate-matcher');
 
 INSERT INTO issue VALUES (7, 'back-end, security', 'Implement a secure login system with password hashing and user authentication', 3, 'hard', 'Y', 'N', 'gsmall@villanova.edu', 'market-place');
 
@@ -120,9 +120,9 @@ INSERT INTO issue VALUES (11, 'back-end, API integration', 'Integrate a third-pa
 
 INSERT INTO issue VALUES (12, 'front-end, UI/UX testing', 'Perform user testing on the website to identify and fix any usability issues', 3, 'medium', 'Y', 'N', 'dmess@villanova.edu', 'market-place');
 
-INSERT INTO issue VALUES (13, 'back-end, performance optimization', 'Optimize the server-side code to reduce the response time for API requests', 4, 'hard', 'Y', 'N', 'jfac@villanova.edu', 'market-place');
+INSERT INTO issue VALUES (13, 'back-end,  optimization', 'Optimize the server-side code to reduce the response time for API requests', 4, 'hard', 'Y', 'N', 'jfac@villanova.edu', 'market-place');
 
-INSERT INTO issue VALUES (14, 'front-end, feature implementation', 'Implement a new feature that allows users to search for products by category', 2, 'easy', 'Y', 'N', 'hcormie2@villanova.edu', 'roommate-matcher');
+INSERT INTO issue VALUES (14, 'front-end, features', 'Implement a new feature that allows users to search for products by category', 2, 'easy', 'Y', 'N', 'hcormie2@villanova.edu', 'roommate-matcher');
      
 
 
