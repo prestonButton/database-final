@@ -15,7 +15,7 @@ select * from president;
 select * from manages;
 
 -- get all issues
-select * from issues;
+select * from issue;
 
 -- get all gen members managed by presidents
 SELECT DISTINCT mem.fname, mem.lname
@@ -28,38 +28,38 @@ WHERE mem.email NOT IN (SELECT pres_email FROM president);
 SELECT mem.fname, mem.lname
 FROM gen_member mem
 INNER JOIN projects p ON mem.project_repo = p.github_repo
-WHERE p.proj_name = 'roommate-matcher';
+WHERE p.proj_name = 'matcher';
 
 -- all members working on market-place
 SELECT mem.fname, mem.lname
 FROM gen_member mem
 INNER JOIN projects p ON mem.project_repo = p.github_repo
-WHERE p.proj_name = 'market-place';
+WHERE p.proj_name = 'market';
 
 -- all exec members working on roommate-matcher
 SELECT mem.fname, mem.lname
 FROM gen_member mem
 INNER JOIN exec_board e ON mem.email = e.exec_email
 INNER JOIN projects p ON e.project_repo = p.github_repo
-WHERE p.proj_name = 'roommate-matcher';
+WHERE p.proj_name = 'matcher';
 
 -- all exec members working on market-place
 SELECT mem.fname, mem.lname
 FROM gen_member mem
 INNER JOIN exec_board e ON mem.email = e.exec_email
 INNER JOIN projects p ON e.project_repo = p.github_repo
-WHERE p.proj_name = 'market-place';
+WHERE p.proj_name = 'market';
 
 -- all issues for roommate-matcher
 SELECT i.issue_number, i.issue_tag, i.comments, i.sprint_num, i.difficulty, i.is_started, i.is_complete
 FROM issue i
 INNER JOIN projects p ON i.project_repo = p.github_repo
-WHERE p.proj_name = 'roommate-matcher';
+WHERE p.proj_name = 'matcher';
 
 -- all issues for market-place
 SELECT i.issue_number, i.issue_tag, i.comments, i.sprint_num, i.difficulty, i.is_started, i.is_complete
 FROM issue i
 INNER JOIN projects p ON i.project_repo = p.github_repo
-WHERE p.proj_name = 'market-place';
+WHERE p.proj_name = 'market';
 
 
