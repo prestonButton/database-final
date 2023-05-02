@@ -2,11 +2,15 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const mysql = require("mysql2/promise");
 const dotenv = require("dotenv");
+const cors = require("cors");
+
 
 dotenv.config();
 
+
 const app = express();
 app.use(bodyParser.json());
+app.use(cors());
 
 const dbConfig = {
   host: process.env.DB_HOST, // or your MySQL host
