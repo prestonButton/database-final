@@ -1,5 +1,5 @@
 const express = require("express");
-const oracledb = require("oracledb");
+const oracledb = require("node-oracledb");
 const bodyParser = require("body-parser");
 const cors = require("cors"); // Import cors
 
