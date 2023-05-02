@@ -13,12 +13,15 @@ function App() {
 
   useEffect(() => {
     getMembers();
-
+    getPresidents();
+    getExec();
+    getProjects();
+    getIssues();
   }, [])
 
   const getMembers = async() => {
     const res = await axios.get('http://localhost:3000/api/members')
-    const members = new Array();
+    const membersArr = new Array();
     for (let i = 0; i < res.data.length; i++) {
       //definitely not the most efficient way to do this
       const member = res.data[i]
@@ -30,12 +33,86 @@ function App() {
       memberArray.push(member.discord_user)
       memberArray.push(member.project_repo)
       memberArray.push(member.class_year)
-      members.push(memberArray)
+      membersArr.push(memberArray)
     }
-    console.log(members)
 
-    setMembers(members)
+    setMembers(membersArr)
   }
+
+  const getPresidents = async() => {
+    const res = await axios.get('http://localhost:3000/api/presidents')
+    const presidentsArr = new Array();
+    for (let i = 0; i < res.data.length; i++) {
+      //definitely not the most efficient way to do this
+      const president = res.data[i]
+      const presidentArray = new Array()
+      presidentArray.push(president.pres_email)
+      presidentArray.push(president.term_number)
+      presidentArray.push(president.special_privileges)
+      presidentsArr.push(presidentArray)
+    }
+
+    setPresidents(presidentsArr)
+  }
+
+  const getExec = async() => {
+    const res = await axios.get('http://localhost:3000/api/exec')
+    const execArr = new Array();
+    for (let i = 0; i < res.data.length; i++) {
+      //definitely not the most efficient way to do this
+      const exec = res.data[i]
+      const execArray = new Array()
+      execArray.push(exec.exec_email)
+      execArray.push(exec.project_repo)
+      execArray.push(exec.term_num)
+      execArray.push(exec.pos)
+      execArr.push(execArray)
+    }
+
+    setExec(execArr)
+  }
+
+  const getProjects = async() => {
+    const res = await axios.get('http://localhost:3000/api/projects')
+    const projectsArr = new Array();
+    for (let i = 0; i < res.data.length; i++) {
+      //definitely not the most efficient way to do this
+      const project = res.data[i]
+      const projectArray = new Array()
+      projectArray.push(project.proj_name)
+      projectArray.push(project.github_repo)
+      projectArray.push(project.languages)
+      projectArray.push(project.timeline)
+      projectArray.push(project.is_started)
+      projectArray.push(project.is_complete)
+      projectsArr.push(projectArray)
+    }
+
+    setProjects(projectsArr)
+  }
+
+  const getIssues = async() => {
+    const res = await axios.get('http://localhost:3000/api/issues')
+    const issuesArr = new Array();
+    for (let i = 0; i < res.data.length; i++) {
+      //definitely not the most efficient way to do this
+      const issue = res.data[i]
+      const issueArray = new Array()
+      issueArray.push(issue.issue_number)
+      issueArray.push(issue.issue_tag)
+      issueArray.push(issue.comments)
+      issueArray.push(issue.sprint_num)
+      issueArray.push(issue.difficulty)
+      issueArray.push(issue.is_started)
+      issueArray.push(issue.is_complete)
+      issueArray.push(issue.mem_email)
+      issueArray.push(issue.project_repo)
+      issuesArr.push(issueArray)
+    }
+
+    setIssues(issuesArr)
+  }
+
 
   return (
     <>
@@ -61,14 +138,39 @@ function App() {
             <Table
               Tname="Presidents"
               Tcols={["President Email", "Term Number", "Special Priviledges"]}
-              Trows={[
-                ["steve@apple.com", "Dead", "Can't be fired"],
-                ["steve@apple.com", "Dead", "Can't be fired"],
-                ["steve@apple.com", "Dead", "Can't be fired"],
-                ["steve@apple.com", "Dead", "Can't be fired"],
-                ["steve@apple.com", "Dead", "Can't be fired"],
-                ["steve@apple.com", "Dead", "Can't be fired"],
+              Trows={presidents}
+            />
+            <Table
+              Tname="Exec board"
+              Tcols={["Exec Email", "Project Repo", "Term number", "Position"]}
+              Trows={exec}
+            />
+            <Table
+              Tname="Projects"
+              Tcols={[
+                "Project Name",
+                "Github Repo",
+                "Languages",
+                "Timeline",
+                "Started",
+                "Complete",
               ]}
+              Trows={projects}
+            />
+            <Table
+              Tname="Issues"
+              Tcols={[
+                "Issue Number",
+                "Issue Tag",
+                "Comments",
+                "Sprint Number",
+                "Difficulty",
+                "Started",
+                "Complete",
+                "Assigned To",
+                " Project Repo"
+              ]}
+              Trows={issues}
             />
           </div>
         </main>
