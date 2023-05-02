@@ -4,9 +4,7 @@ const mysql = require("mysql2/promise");
 const dotenv = require("dotenv");
 const cors = require("cors");
 
-
 dotenv.config();
-
 
 const app = express();
 app.use(bodyParser.json());
@@ -77,7 +75,6 @@ app.get("/api/tables", async (req, res) => {
     res.status(500).send(err.message);
   }
 });
-
 
 app.post("/api/projects", async (req, res) => {
   try {
