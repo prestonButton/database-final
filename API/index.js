@@ -100,8 +100,121 @@ app.get('/api/issues', async (req, res) => {
 
 // Post Requests
 
+//add a member
+app.post("/api/members", async (req, res) => {
+  const {
+    fname,
+    lname,
+    email,
+    github_user,
+    discord_user,
+    project_repo,
+    class_year,
+  } = req.body;
 
+  try {
+    const result = await connection.query(
+      "INSERT INTO gen_member (fname, lname, email, github_user, discord_user, project_repo, class_year) VALUES (?, ?, ?, ?, ?, ?, ?)",
+      [fname, lname, email, github_user, discord_user, project_repo, class_year]
+    );
+    res
+      .status(201)
+      .json({
+        message: "Member added successfully!",
+        insertId: result[0].insertId,
+      });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send(err.message);
+  }
+});
 
+//add a president
+app.post("/api/presidents", async (req, res) => {
+  const { pres_email, term_number, special_privileges } = req.body;
+  try {
+    await connection.query(
+      "INSERT INTO president (pres_email, term_number, special_privileges) VALUES (?, ?, ?)",
+      [pres_email, term_number, special_privileges]
+    );
+    res.status(201).send("President added successfully");
+  } catch (err) {
+    console.error(err);
+    res.status(500).send(err.message);
+  }
+});
+
+//add an exec board member
+app.post("/api/exec", async (req, res) => {
+  const { exec_email, project_repo, term_num, pos } = req.body;
+  try {
+    await connection.query(
+      "INSERT INTO exec_board (exec_email, project_repo, term_num, pos) VALUES (?, ?, ?, ?)",
+      [exec_email, project_repo, term_num, pos]
+    );
+    res.status(201).send("Exec board member added successfully");
+  } catch (err) {
+    console.error(err);
+    res.status(500).send(err.message);
+  }
+});
+
+//add a project
+app.post("/api/projects", async (req, res) => {
+  const {
+    proj_name,
+    github_repo,
+    languages,
+    timeline,
+    is_started,
+    is_complete,
+  } = req.body;
+  try {
+    await connection.query(
+      "INSERT INTO projects (proj_name, github_repo, languages, timeline, is_started, is_complete) VALUES (?, ?, ?, ?, ?, ?)",
+      [proj_name, github_repo, languages, timeline, is_started, is_complete]
+    );
+    res.status(201).send("Project added successfully");
+  } catch (err) {
+    console.error(err);
+    res.status(500).send(err.message);
+  }
+});
+
+//add an issue
+app.post("/api/issues", async (req, res) => {
+  const {
+    issue_number,
+    issue_tag,
+    comments,
+    sprint_num,
+    difficulty,
+    is_started,
+    is_complete,
+    mem_email,
+    project_repo,
+  } = req.body;
+  try {
+    await connection.query(
+      "INSERT INTO issue (issue_number, issue_tag, comments, sprint_num, difficulty, is_started, is_complete, mem_email, project_repo) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+      [
+        issue_number,
+        issue_tag,
+        comments,
+        sprint_num,
+        difficulty,
+        is_started,
+        is_complete,
+        mem_email,
+        project_repo,
+      ]
+    );
+    res.status(201).send("Issue added successfully");
+  } catch (err) {
+    console.error(err);
+    res.status(500).send(err.message);
+  }
+});
 
 // Add routes for other tables following the same pattern
 
