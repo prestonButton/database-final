@@ -1,0 +1,1 @@
+These are the files for the MySQL database which we used to create the dashboard application.
