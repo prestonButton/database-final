@@ -118,18 +118,8 @@ function App() {
   };
 
   //add a member
-const addMember = async (newData) => {
-  const [
-    fname,
-    lname,
-    email,
-    github_user,
-    discord_user,
-    project_repo,
-    class_year,
-  ] = newData;
-  try {
-    const res = await axios.post("http://localhost:3000/api/members", {
+  const addMember = async (newData) => {
+    const [
       fname,
       lname,
       email,
@@ -137,15 +127,24 @@ const addMember = async (newData) => {
       discord_user,
       project_repo,
       class_year,
-    });
-    console.log(res.data);
-    // Update the state with the new member
-    setMembers([...members, newData]);
-  } catch (err) {
-    console.error(err);
-  }
-};
-
+    ] = newData;
+    try {
+      const res = await axios.post("http://localhost:3000/api/members", {
+        fname,
+        lname,
+        email,
+        github_user,
+        discord_user,
+        project_repo,
+        class_year,
+      });
+      console.log(res.data);
+      // Update the state with the new member
+      getMembers();
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   // Add a president
   const addPresident = async (newData) => {
@@ -158,12 +157,11 @@ const addMember = async (newData) => {
       });
       console.log(res.data);
       // Update the state with the new president
-      setPresidents([...presidents, newData]);
+      getPresidents();
     } catch (err) {
       console.error(err);
     }
   };
-
 
   // Add an exec
   const addExec = async (newData) => {
@@ -177,12 +175,11 @@ const addMember = async (newData) => {
       });
       console.log(res.data);
       // Update the state with the new exec board member
-      setExec([...exec, newData]);
+      getExec();
     } catch (err) {
       console.error(err);
     }
   };
-
 
   // Add a project
   const addProject = async (newData) => {
@@ -205,12 +202,11 @@ const addMember = async (newData) => {
       });
       console.log(res.data);
       // Update the state with the new project
-      setProjects([...projects, newData]);
+      getProjects();
     } catch (err) {
       console.error(err);
     }
   };
-
 
   // Add an issue
   const addIssue = async (newData) => {
@@ -239,12 +235,66 @@ const addMember = async (newData) => {
       });
       console.log(res.data);
       // Update the state with the new issue
-      setIssues([...issues, newData]);
+      getIssues();
     } catch (err) {
       console.error(err);
     }
   };
 
+  // Delete a member
+  const deleteMember = async (email) => {
+    console.log("Deleting member with email:", email);
+    try {
+      await axios.delete(`http://localhost:3000/api/members/${email}`);
+      getMembers(); // Refresh the members table after deletion
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  // Delete a president
+  const deletePresident = async (pres_email) => {
+    console.log("Deleting president with email:", pres_email);
+    try {
+      await axios.delete(`http://localhost:3000/api/presidents/${pres_email}`);
+      getPresidents(); // Refresh the presidents table after deletion
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  // Delete an exec board member
+  const deleteExec = async (exec_email) => {
+    console.log("Deleting exec board member with email:", exec_email);
+    try {
+      await axios.delete(`http://localhost:3000/api/exec/${exec_email}`);
+      getExec(); // Refresh the exec board table after deletion
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  // Delete a project
+  const deleteProject = async (github_repo) => {
+    console.log("Deleting project with GitHub repo:", github_repo);
+    try {
+      await axios.delete(`http://localhost:3000/api/projects/${github_repo}`);
+      getProjects(); // Refresh the projects table after deletion
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  // Delete an issue
+  const deleteIssue = async (issue_number) => {
+    console.log("Deleting issue with issue number:", issue_number);
+    try {
+      await axios.delete(`http://localhost:3000/api/issues/${issue_number}`);
+      getIssues(); // Refresh the issues table after deletion
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <>
@@ -267,18 +317,24 @@ const addMember = async (newData) => {
               ]}
               Trows={members}
               onAdd={addMember}
+              onDelete={deleteMember}
+              primaryKeyField="Email"
             />
             <Table
               Tname="Presidents"
               Tcols={["President Email", "Term Number", "Special Priviledges"]}
               Trows={presidents}
               onAdd={addPresident}
+              onDelete={deletePresident}
+              primaryKeyField="President Email"
             />
             <Table
               Tname="Exec board"
               Tcols={["Exec Email", "Project Repo", "Term number", "Position"]}
               Trows={exec}
               onAdd={addExec}
+              onDelete={deleteExec}
+              primaryKeyField="Exec Email"
             />
             <Table
               Tname="Projects"
@@ -292,6 +348,8 @@ const addMember = async (newData) => {
               ]}
               Trows={projects}
               onAdd={addProject}
+              onDelete={deleteProject}
+              primaryKeyField="Github Repo"
             />
             <Table
               Tname="Issues"
@@ -304,10 +362,12 @@ const addMember = async (newData) => {
                 "Started",
                 "Complete",
                 "Assigned To",
-                " Project Repo",
+                "Project Repo",
               ]}
               Trows={issues}
               onAdd={addIssue}
+              onDelete={deleteIssue}
+              primaryKeyField="Issue Number"
             />
           </div>
         </main>

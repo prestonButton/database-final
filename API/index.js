@@ -102,6 +102,8 @@ app.get('/api/issues', async (req, res) => {
 
 //add a member
 app.post("/api/members", async (req, res) => {
+  console.log("Received request body:", req.body); // Log the request body for debugging purposes
+
   const {
     fname,
     lname,
@@ -117,17 +119,16 @@ app.post("/api/members", async (req, res) => {
       "INSERT INTO gen_member (fname, lname, email, github_user, discord_user, project_repo, class_year) VALUES (?, ?, ?, ?, ?, ?, ?)",
       [fname, lname, email, github_user, discord_user, project_repo, class_year]
     );
-    res
-      .status(201)
-      .json({
-        message: "Member added successfully!",
-        insertId: result[0].insertId,
-      });
+    res.status(201).json({
+      message: "Member added successfully!",
+      insertId: result[0].insertId,
+    });
   } catch (err) {
     console.error(err);
     res.status(500).send(err.message);
   }
 });
+
 
 //add a president
 app.post("/api/presidents", async (req, res) => {
@@ -215,6 +216,86 @@ app.post("/api/issues", async (req, res) => {
     res.status(500).send(err.message);
   }
 });
+
+//Delete Requests
+
+//delete a member
+app.delete("/api/members/:email", async (req, res) => {
+  try {
+    const email = req.params.email;
+    console.log(`Attempting to delete member with email: ${email}`); // Log the email for debugging purposes
+    const result = await connection.query(
+      "DELETE FROM gen_member WHERE email = ?",
+      [email]
+    );
+    console.log(`Deletion result:`, result); // Log the result for debugging purposes
+    res.status(200).send("Member deleted successfully");
+  } catch (err) {
+    console.error(err);
+    res.status(500).send(err.message);
+  }
+});
+
+app.delete("/api/presidents/:pres_email", async (req, res) => {
+  try {
+    const pres_email = req.params.pres_email;
+    console.log(`Attempting to delete president with email: ${pres_email}`); // Log the email for debugging purposes
+    const result = await connection.query("DELETE FROM president WHERE pres_email = ?", [
+      pres_email,
+    ]);
+    console.log(`Deletion result:`, result); // Log the result for debugging purposes
+    res.status(200).send("President deleted successfully");
+  } catch (err) {
+    console.error(err);
+    res.status(500).send(err.message);
+  }
+});
+
+app.delete("/api/exec/:exec_email", async (req, res) => {
+  try {
+    const exec_email = req.params.exec_email;
+    console.log(`Attempting to delete exec board member with email: ${exec_email}`); // Log the email for debugging purposes
+    const result = await connection.query("DELETE FROM exec_board WHERE exec_email = ?", [
+      exec_email,
+    ]);
+    console.log(`Deletion result:`, result); // Log the result for debugging purposes
+    res.status(200).send("Exec board member deleted successfully");
+  } catch (err) {
+    console.error(err);
+    res.status(500).send(err.message);
+  }
+});
+
+app.delete("/api/projects/:github_repo", async (req, res) => {
+  try {
+    const github_repo = req.params.github_repo;
+    console.log(`Attempting to delete project with GitHub repo: ${github_repo}`); // Log the repo for debugging purposes
+    const result = await connection.query("DELETE FROM projects WHERE github_repo = ?", [
+      github_repo,
+    ]);
+    console.log(`Deletion result:`, result); // Log the result for debugging purposes
+    res.status(200).send("Project deleted successfully");
+  } catch (err) {
+    console.error(err);
+    res.status(500).send(err.message);
+  }
+});
+
+app.delete("/api/issues/:issue_number", async (req, res) => {
+  try {
+    const issue_number = req.params.issue_number;
+    console.log(`Attempting to delete issue with issue number: ${issue_number}`); // Log the issue number for debugging purposes
+    const result = await connection.query("DELETE FROM issue WHERE issue_number = ?", [
+      issue_number,
+    ]);
+    console.log(`Deletion result:`, result); // Log the result for debugging purposes
+    res.status(200).send("Issue deleted successfully");
+  } catch (err) {
+    console.error(err);
+    res.status(500).send(err.message);
+  }
+});
+
 
 // Add routes for other tables following the same pattern
 

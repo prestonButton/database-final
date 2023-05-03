@@ -3,22 +3,29 @@ import React, { useState } from "react";
 import "./table.css";
 
 const Table = (props) => {
-  const [formData, setFormData] = useState({});
+  const initialFormData = props.Tcols.reduce((acc, col) => {
+    acc[col] = "";
+    return acc;
+  }, {});
 
-  const handleDelete = (index) => {
-    props.onDelete(index);
+  const [formData, setFormData] = useState(initialFormData);
+
+  const handleDelete = (primaryKey) => {
+    props.onDelete(primaryKey);
   };
 
-  const handleAdd = () => {
-    const inputs = Array.from(
-      document.querySelectorAll(`input[placeholder^='${props.Tname}']`)
-    );
-    const newData = inputs.map((input) => input.value);
-    props.onAdd(newData);
+const handleAdd = () => {
+  const newData = props.Tcols.map((col) => formData[col]);
+  props.onAdd(newData);
 
-    // Reset the form by setting the value of each input to an empty string
-    inputs.forEach((input) => (input.value = ""));
-  };
+  // Reset the formData
+  const emptyFormData = props.Tcols.reduce((acc, col) => {
+    acc[col] = "";
+    return acc;
+  }, {});
+  setFormData(emptyFormData);
+};
+
 
 
   const handleInputChange = (event, col) => {
@@ -48,7 +55,10 @@ const Table = (props) => {
                 <button
                   className="delete"
                   onClick={() => {
-                    handleDelete(index);
+                    const primaryKeyIndex = props.Tcols.indexOf(
+                      props.primaryKeyField
+                    );
+                    handleDelete(row[primaryKeyIndex]);
                   }}
                 >
                   &times;
@@ -60,11 +70,13 @@ const Table = (props) => {
             {props.Tcols.map((col, index) => (
               <td key={index}>
                 <input
-                  placeholder={`${props.Tname} ${col}`}
+                  placeholder={`${col}`}
+                  value={formData[col] || ""}
                   onChange={(event) => handleInputChange(event, col)}
                 />
               </td>
             ))}
+
             <td>
               <button className="add" onClick={handleAdd}>
                 +
