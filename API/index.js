@@ -1,21 +1,31 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const mysql = require("mysql2/promise");
-const dotenv = require("dotenv");
 const cors = require("cors");
-
-dotenv.config();
 
 const app = express();
 app.use(bodyParser.json());
 app.use(cors());
 
+const dbConnectionString = "mysql://doadmin:AVNS_j4BkddHiQ0BS9CLigUM@db-mysql-nyc1-30254-do-user-14672349-0.b.db.ondigitalocean.com:25060/VSDS?ssl-mode=REQUIRED";
+
 const dbConfig = {
-  host: process.env.DB_HOST, // or your MySQL host
-  user: process.env.USER, // or your MySQL user
-  password: process.env.PASSWORD, // or your MySQL password
-  database: "VSDS",
+  ...parseDatabaseUrl(dbConnectionString),
 };
+
+const pool = mysql.createPool(dbConfig);
+
+// Helper function to parse the database URL
+function parseDatabaseUrl(url) {
+  const parsedUrl = new URL(url);
+  return {
+    host: parsedUrl.hostname,
+    port: parsedUrl.port,
+    user: parsedUrl.username,
+    password: parsedUrl.password,
+    database: parsedUrl.pathname.substring(1), // Remove the leading slash
+  };
+}
 
 let connection;
 
