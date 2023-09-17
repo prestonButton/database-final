@@ -7,7 +7,7 @@ const app = express();
 app.use(bodyParser.json());
 app.use(cors());
 
-const dbConnectionString = "mysql://doadmin:AVNS_j4BkddHiQ0BS9CLigUM@db-mysql-nyc1-30254-do-user-14672349-0.b.db.ondigitalocean.com:25060/VSDS?ssl-mode=REQUIRED";
+const dbConnectionString = process.env.DB_URL;
 
 const dbConfig = {
   ...parseDatabaseUrl(dbConnectionString),
