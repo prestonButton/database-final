@@ -19,7 +19,7 @@ function App() {
   }, []);
 
   const getMembers = async () => {
-    const res = await axios.get("http://localhost:3000/api/members");
+    const res = await axios.get("https://squid-app-2jclv.ondigitalocean.app/api/members");
     const membersArr = new Array();
     for (let i = 0; i < res.data.length; i++) {
       //definitely not the most efficient way to do this
@@ -39,7 +39,7 @@ function App() {
   };
 
   const getPresidents = async () => {
-    const res = await axios.get("http://localhost:3000/api/presidents");
+    const res = await axios.get("https://squid-app-2jclv.ondigitalocean.app/api/presidents");
     const presidentsArr = new Array();
     for (let i = 0; i < res.data.length; i++) {
       //definitely not the most efficient way to do this
@@ -55,7 +55,7 @@ function App() {
   };
 
   const getExec = async () => {
-    const res = await axios.get("http://localhost:3000/api/exec");
+    const res = await axios.get("https://squid-app-2jclv.ondigitalocean.app/api/exec");
     const execArr = new Array();
     for (let i = 0; i < res.data.length; i++) {
       //definitely not the most efficient way to do this
@@ -72,7 +72,7 @@ function App() {
   };
 
   const getProjects = async () => {
-    const res = await axios.get("http://localhost:3000/api/projects");
+    const res = await axios.get("https://squid-app-2jclv.ondigitalocean.app/api/projects");
     const projectsArr = new Array();
     for (let i = 0; i < res.data.length; i++) {
       //definitely not the most efficient way to do this
@@ -91,7 +91,7 @@ function App() {
   };
 
   const getIssues = async () => {
-    const res = await axios.get("http://localhost:3000/api/issues");
+    const res = await axios.get("https://squid-app-2jclv.ondigitalocean.app/api/issues");
     const issuesArr = new Array();
     for (let i = 0; i < res.data.length; i++) {
       //definitely not the most efficient way to do this
@@ -129,7 +129,7 @@ function App() {
       class_year,
     ] = newData;
     try {
-      const res = await axios.post("http://localhost:3000/api/members", {
+      const res = await axios.post("https://squid-app-2jclv.ondigitalocean.app/api/members", {
         fname,
         lname,
         email,
@@ -150,7 +150,7 @@ function App() {
   const addPresident = async (newData) => {
     const [pres_email, term_number, special_privileges] = newData;
     try {
-      const res = await axios.post("http://localhost:3000/api/presidents", {
+      const res = await axios.post("https://squid-app-2jclv.ondigitalocean.app/api/presidents", {
         pres_email,
         term_number,
         special_privileges,
@@ -167,7 +167,7 @@ function App() {
   const addExec = async (newData) => {
     const [exec_email, project_repo, term_num, pos] = newData;
     try {
-      const res = await axios.post("http://localhost:3000/api/exec", {
+      const res = await axios.post("https://squid-app-2jclv.ondigitalocean.app/api/api/exec", {
         exec_email,
         project_repo,
         term_num,
@@ -192,7 +192,7 @@ function App() {
       is_complete,
     ] = newData;
     try {
-      const res = await axios.post("http://localhost:3000/api/projects", {
+      const res = await axios.post("https://squid-app-2jclv.ondigitalocean.app/api/projects", {
         proj_name,
         github_repo,
         languages,
@@ -222,7 +222,7 @@ function App() {
       project_repo,
     ] = newData;
     try {
-      const res = await axios.post("http://localhost:3000/api/issues", {
+      const res = await axios.post("https://squid-app-2jclv.ondigitalocean.app/api/issues", {
         issue_number,
         issue_tag,
         comments,
@@ -245,7 +245,7 @@ function App() {
   const deleteMember = async (email) => {
     console.log("Deleting member with email:", email);
     try {
-      await axios.delete(`http://localhost:3000/api/members/${email}`);
+      await axios.delete(`https://squid-app-2jclv.ondigitalocean.app/api/members/${email}`);
       getMembers(); // Refresh the members table after deletion
     } catch (error) {
       console.error(error);
@@ -256,7 +256,7 @@ function App() {
   const deletePresident = async (pres_email) => {
     console.log("Deleting president with email:", pres_email);
     try {
-      await axios.delete(`http://localhost:3000/api/presidents/${pres_email}`);
+      await axios.delete(`https://squid-app-2jclv.ondigitalocean.app/api/presidents/${pres_email}`);
       getPresidents(); // Refresh the presidents table after deletion
     } catch (error) {
       console.error(error);
@@ -267,7 +267,7 @@ function App() {
   const deleteExec = async (exec_email) => {
     console.log("Deleting exec board member with email:", exec_email);
     try {
-      await axios.delete(`http://localhost:3000/api/exec/${exec_email}`);
+      await axios.delete(`https://squid-app-2jclv.ondigitalocean.app/api/exec/${exec_email}`);
       getExec(); // Refresh the exec board table after deletion
     } catch (error) {
       console.error(error);
@@ -278,7 +278,7 @@ function App() {
   const deleteProject = async (github_repo) => {
     console.log("Deleting project with GitHub repo:", github_repo);
     try {
-      await axios.delete(`http://localhost:3000/api/projects/${github_repo}`);
+      await axios.delete(`https://squid-app-2jclv.ondigitalocean.app/api/projects/${github_repo}`);
       getProjects(); // Refresh the projects table after deletion
     } catch (error) {
       console.error(error);
@@ -289,7 +289,7 @@ function App() {
   const deleteIssue = async (issue_number) => {
     console.log("Deleting issue with issue number:", issue_number);
     try {
-      await axios.delete(`http://localhost:3000/api/issues/${issue_number}`);
+      await axios.delete(`https://squid-app-2jclv.ondigitalocean.app/api/issues/${issue_number}`);
       getIssues(); // Refresh the issues table after deletion
     } catch (error) {
       console.error(error);
